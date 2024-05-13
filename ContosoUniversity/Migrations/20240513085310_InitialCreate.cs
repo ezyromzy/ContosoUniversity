@@ -81,7 +81,7 @@ namespace ContosoUniversity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Course",
+                name: "Courses",
                 columns: table => new
                 {
                     CourseID = table.Column<int>(type: "int", nullable: false),
@@ -113,7 +113,7 @@ namespace ContosoUniversity.Migrations
                     table.ForeignKey(
                         name: "FK_CourseInstructor_Course_CoursesCourseID",
                         column: x => x.CoursesCourseID,
-                        principalTable: "Course",
+                        principalTable: "Courses",
                         principalColumn: "CourseID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -140,7 +140,7 @@ namespace ContosoUniversity.Migrations
                     table.ForeignKey(
                         name: "FK_Enrollments_Course_CourseID",
                         column: x => x.CourseID,
-                        principalTable: "Course",
+                        principalTable: "Courses",
                         principalColumn: "CourseID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -153,7 +153,7 @@ namespace ContosoUniversity.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Course_DepartmentID",
-                table: "Course",
+                table: "Courses",
                 column: "DepartmentID");
 
             migrationBuilder.CreateIndex(
@@ -190,7 +190,7 @@ namespace ContosoUniversity.Migrations
                 name: "OfficeAssignments");
 
             migrationBuilder.DropTable(
-                name: "Course");
+                name: "Courses");
 
             migrationBuilder.DropTable(
                 name: "Student");
