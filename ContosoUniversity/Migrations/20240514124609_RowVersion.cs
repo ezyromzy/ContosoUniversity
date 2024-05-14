@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContosoUniversity.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class RowVersion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,7 +50,8 @@ namespace ContosoUniversity.Migrations
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Budget = table.Column<decimal>(type: "money", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    InstructorID = table.Column<int>(type: "int", nullable: true)
+                    InstructorID = table.Column<int>(type: "int", nullable: true),
+                    ConcurrencyToken = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -81,7 +82,7 @@ namespace ContosoUniversity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Courses",
+                name: "Course",
                 columns: table => new
                 {
                     CourseID = table.Column<int>(type: "int", nullable: false),
@@ -113,7 +114,7 @@ namespace ContosoUniversity.Migrations
                     table.ForeignKey(
                         name: "FK_CourseInstructor_Course_CoursesCourseID",
                         column: x => x.CoursesCourseID,
-                        principalTable: "Courses",
+                        principalTable: "Course",
                         principalColumn: "CourseID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -140,7 +141,7 @@ namespace ContosoUniversity.Migrations
                     table.ForeignKey(
                         name: "FK_Enrollments_Course_CourseID",
                         column: x => x.CourseID,
-                        principalTable: "Courses",
+                        principalTable: "Course",
                         principalColumn: "CourseID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -153,7 +154,7 @@ namespace ContosoUniversity.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Course_DepartmentID",
-                table: "Courses",
+                table: "Course",
                 column: "DepartmentID");
 
             migrationBuilder.CreateIndex(
@@ -190,7 +191,7 @@ namespace ContosoUniversity.Migrations
                 name: "OfficeAssignments");
 
             migrationBuilder.DropTable(
-                name: "Courses");
+                name: "Course");
 
             migrationBuilder.DropTable(
                 name: "Student");
